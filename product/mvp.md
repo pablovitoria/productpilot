@@ -2,90 +2,103 @@
 
 ## Objective
 
-Build a functional prototype that demonstrates how AI can accelerate product discovery while keeping Product Managers in control of the final decision.
+Build a functional prototype that demonstrates how AI can improve product discovery by guiding Product Managers through a structured decision-making workflow while keeping humans responsible for the final decision.
 
-The MVP should showcase a complete end-to-end workflow rather than a collection of disconnected AI features.
-
----
-
-## User Flow
-
-1. Paste customer feedback
-2. AI synthesizes the feedback
-3. Product Manager reviews and enriches the analysis with business context and product metrics
-4. Generate a Product Opportunity Brief
+The goal is not to build a complete product management platform, but to validate the core ProductPilot experience.
 
 ---
 
-## MVP Features
+# MVP Workflow
 
-### 1. Customer Feedback Input
+1. Customer Feedback
+2. AI Analysis
+3. Potential Opportunity Identification
+4. PM Decision Workspace
+5. AI Challenge
+6. Output Selection
 
-The user can paste customer feedback from any source.
+---
+
+# MVP Screens
+
+## 1. Customer Feedback
+
+Users paste customer feedback from any source.
 
 Examples:
-- App Store reviews
+
+- App reviews
 - Interview notes
 - Support tickets
+- Surveys
 - Reddit discussions
-- Survey responses
 
 ---
 
-### 2. AI Synthesis
+## 2. AI Analysis
 
-AI analyzes the feedback and identifies:
+AI synthesizes the feedback and generates:
 
-- Common themes
+- Themes
 - Pain points
+- Customer quotes
 - Sentiment
-- Representative customer quotes
-- Initial opportunity areas
+- Potential opportunities
 
 ---
 
-### 3. PM Evaluation
+## 3. Opportunity Selection
 
-Before generating any output, the Product Manager reviews the AI analysis and can:
-
-- Edit opportunity statements
-- Add business context
-- Add supporting product metrics
-- Adjust confidence
-- Add implementation notes
-
-This is the core differentiator of ProductPilot.
+The Product Manager reviews several AI-generated opportunities and selects one to evaluate further.
 
 ---
 
-### 4. Product Opportunity Brief
+## 4. PM Decision Workspace
 
-Generate a concise summary including:
+The Product Manager completes a guided evaluation by:
 
-- Problem Statement
-- Evidence
-- Business Impact
-- Success Metrics
-- Recommended Next Step
+- Validating the opportunity
+- Reviewing customer evidence
+- Adding supporting product metrics
+- Providing business context
+- Assessing customer impact
+- Assessing business impact
+- Assessing confidence
+- Reviewing strategic alignment
 
 ---
 
-## Out of Scope
+## 5. AI Challenge
 
-The MVP will not include:
+AI reviews the Product Manager's evaluation and raises potential questions, assumptions, or missing considerations before the final artifact is generated.
 
-- User authentication
-- Database
+---
+
+## 6. Output Selection
+
+Users choose which artifact to generate:
+
+- Product Decision Canvas
+- Epic Draft
+- PRD Draft
+
+---
+
+# Out of Scope
+
+Version 1 will NOT include:
+
+- Authentication
+- Databases
 - File uploads
-- Roadmaps
 - Jira integration
-- Analytics dashboards
+- Roadmaps
 - Team collaboration
-- Multiple projects
-- AI prioritization without human review
+- Project history
+- AI making autonomous product decisions
 
 ---
 
-## Definition of Done
+# Definition of Done
 
-The MVP is complete when a Product Manager can complete the entire workflow, from raw customer feedback to a Product Opportunity Brief, in one session without leaving the application.
+The MVP is complete when a Product Manager can complete the full workflow—from raw customer feedback to a generated product artifact—in a single session while maintaining control over every product decision.
