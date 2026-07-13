@@ -20,7 +20,7 @@ The experience is intentionally guided rather than chatbot-based.
 
 ## Prototype
 
-![ProductPilot AI Analysis](./assets/productpilot-analysis.png)
+![ProductPilot AI Analysis](./assets/product-pilot-screenshot.png)
 
 ## MVP
 
