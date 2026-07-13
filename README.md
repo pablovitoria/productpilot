@@ -51,7 +51,7 @@ The MVP aims to reduce the average time from unstructured customer feedback to a
 - [User Flow](./product/user-flow.md)
 - [Screen Specifications](./product/screen-specs.md)
 - [Success Metrics](./product/success-metrics.md)
-- [Roadmap](./roadmap.md)
+- [Roadmap](./product/roadmap.md)
 
 ## Tech Stack
 
