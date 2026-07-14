@@ -20,3 +20,9 @@ export function getPreviousStepPath(path: string): string | null {
   if (index <= 0) return null;
   return WORKFLOW_STEPS[index - 1].path;
 }
+
+export function getNextStepPath(path: string): string | null {
+  const index = WORKFLOW_STEPS.findIndex((entry) => entry.path === path);
+  if (index < 0 || index >= WORKFLOW_STEPS.length - 1) return null;
+  return WORKFLOW_STEPS[index + 1].path;
+}

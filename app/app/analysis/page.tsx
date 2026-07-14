@@ -7,7 +7,8 @@ import {
   type SentimentData,
 } from "@/lib/workflow/analysis";
 import { useWorkflow } from "@/lib/workflow/context";
-import { getPreviousStepPath } from "@/lib/workflow/steps";
+import { getNextStepPath, getPreviousStepPath } from "@/lib/workflow/steps";
+import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 
 type TransparencyInfo = {
@@ -435,6 +436,7 @@ function CardContent({
 }
 
 export default function AnalysisPage() {
+  const router = useRouter();
   const {
     analysis,
     setAnalysis,
@@ -520,6 +522,10 @@ export default function AnalysisPage() {
               <div className="mt-6 flex justify-end">
                 <button
                   type="button"
+                  onClick={() => {
+                    const nextStep = getNextStepPath("/analysis");
+                    if (nextStep) router.push(nextStep);
+                  }}
                   className="inline-flex h-9 items-center justify-center rounded-lg bg-zinc-900 px-4 text-sm font-medium text-white transition-colors hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2 focus:ring-offset-zinc-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white dark:focus:ring-zinc-100 dark:focus:ring-offset-zinc-950"
                 >
                   Continue
