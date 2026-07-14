@@ -1,5 +1,8 @@
 "use client";
 
+import { WorkflowHeader } from "@/components/workflow-header";
+import { useWorkflow } from "@/lib/workflow/context";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const PLACEHOLDER =
@@ -16,7 +19,8 @@ const DEMO_FEEDBACK = `"The flight search filters are confusing. I can't find de
 "The flexible dates feature never shows the cheapest weekends. I end up checking Google Flights anyway."`;
 
 export default function Home() {
-  const [feedback, setFeedback] = useState("");
+  const router = useRouter();
+  const { feedback, setFeedback } = useWorkflow();
   const [error, setError] = useState<string | null>(null);
 
   function handleAnalyze() {
@@ -26,7 +30,7 @@ export default function Home() {
     }
 
     setError(null);
-    // Navigation to AI Analysis will be wired in Screen 2.
+    router.push("/analysis");
   }
 
   function handleLoadDemoDataset() {
@@ -43,35 +47,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-full flex-col bg-zinc-50 dark:bg-zinc-950">
-      <header className="border-b border-zinc-200 bg-white px-6 dark:border-zinc-800 dark:bg-zinc-950">
-        <div className="mx-auto flex h-14 max-w-[960px] items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div
-              aria-hidden
-              className="flex h-6 w-6 items-center justify-center rounded bg-zinc-900 dark:bg-zinc-100"
-            >
-              <svg
-                viewBox="0 0 16 16"
-                fill="none"
-                className="h-3 w-3 text-white dark:text-zinc-900"
-              >
-                <path
-                  d="M8 2L12 8L8 14L4 8L8 2Z"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-            <span className="text-sm font-medium text-zinc-900 dark:text-zinc-50">
-              ProductPilot
-            </span>
-          </div>
-          <span className="text-xs text-zinc-400 dark:text-zinc-500">
-            Step 1 of 6
-          </span>
-        </div>
-      </header>
+      <WorkflowHeader step={1} />
 
       <main className="flex flex-1 flex-col px-6 py-20 sm:py-28">
         <div className="mx-auto flex w-full max-w-[720px] flex-col">
