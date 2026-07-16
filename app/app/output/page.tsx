@@ -8,6 +8,8 @@ import {
   type OutputType,
 } from "@/lib/workflow/output";
 import { getPreviousStepPath } from "@/lib/workflow/steps";
+import { canContinueFromChallenge } from "@/lib/workflow/challenge";
+import { canContinueFromWorkspace } from "@/lib/workflow/workspace";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -30,10 +32,20 @@ export default function OutputPage() {
       router.replace("/opportunities");
       return;
     }
-    if (!challengeReviewed) {
+    if (!canContinueFromWorkspace(workspace)) {
+      router.replace("/workspace");
+      return;
+    }
+    if (!challengeReviewed || !canContinueFromChallenge(challengeDecisions)) {
       router.replace("/challenge");
     }
-  }, [selectedOpportunity, workspace, challengeReviewed, router]);
+  }, [
+    selectedOpportunity,
+    workspace,
+    challengeReviewed,
+    challengeDecisions,
+    router,
+  ]);
 
   const preview = useMemo(() => {
     if (!selectedOpportunity || !workspace || !selectedOutputType) return "";
@@ -50,7 +62,12 @@ export default function OutputPage() {
     challengeDecisions,
   ]);
 
-  if (!selectedOpportunity || !workspace || !challengeReviewed) {
+  if (
+    !selectedOpportunity ||
+    !workspace ||
+    !challengeReviewed ||
+    !canContinueFromChallenge(challengeDecisions)
+  ) {
     return null;
   }
 
@@ -75,7 +92,7 @@ export default function OutputPage() {
 
   function handleStartNew() {
     resetWorkflow();
-    router.push("/");
+    router.replace("/");
   }
 
   function handleSelect(outputType: OutputType) {

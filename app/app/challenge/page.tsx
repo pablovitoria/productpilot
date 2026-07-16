@@ -9,6 +9,7 @@ import {
 } from "@/lib/workflow/challenge";
 import { useWorkflow } from "@/lib/workflow/context";
 import { getNextStepPath, getPreviousStepPath } from "@/lib/workflow/steps";
+import { canContinueFromWorkspace } from "@/lib/workflow/workspace";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -26,10 +27,14 @@ export default function ChallengePage() {
   useEffect(() => {
     if (!selectedOpportunity || !workspace) {
       router.replace("/opportunities");
+      return;
+    }
+    if (!canContinueFromWorkspace(workspace)) {
+      router.replace("/workspace");
     }
   }, [selectedOpportunity, workspace, router]);
 
-  if (!selectedOpportunity || !workspace) {
+  if (!selectedOpportunity || !workspace || !canContinueFromWorkspace(workspace)) {
     return null;
   }
 

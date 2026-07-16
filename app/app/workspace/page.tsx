@@ -6,6 +6,7 @@ import { getNextStepPath, getPreviousStepPath } from "@/lib/workflow/steps";
 import {
   BUSINESS_OBJECTIVES,
   canContinueFromWorkspace,
+  createWorkspaceFromOpportunity,
   getDecisionConfidenceLabel,
   getDecisionReadiness,
   getEvidenceStrength,
@@ -244,10 +245,14 @@ export default function WorkspacePage() {
   const [showValidation, setShowValidation] = useState(false);
 
   useEffect(() => {
-    if (!selectedOpportunity || !workspace) {
+    if (!selectedOpportunity) {
       router.replace("/opportunities");
+      return;
     }
-  }, [selectedOpportunity, workspace, router]);
+    if (!workspace) {
+      setWorkspace(createWorkspaceFromOpportunity(selectedOpportunity));
+    }
+  }, [selectedOpportunity, workspace, setWorkspace, router]);
 
   if (!selectedOpportunity || !workspace) {
     return null;

@@ -438,6 +438,7 @@ function CardContent({
 export default function AnalysisPage() {
   const router = useRouter();
   const {
+    feedback,
     analysis,
     setAnalysis,
     editedCards,
@@ -446,6 +447,12 @@ export default function AnalysisPage() {
     completeAnalysis,
   } = useWorkflow();
   const isLoading = !analysisComplete;
+
+  useEffect(() => {
+    if (!feedback.trim()) {
+      router.replace("/");
+    }
+  }, [feedback, router]);
 
   useEffect(() => {
     if (analysisComplete) return;
@@ -469,6 +476,10 @@ export default function AnalysisPage() {
     { id: "sentiment", title: "Sentiment Overview" },
     { id: "emergingPatterns", title: "Emerging Patterns" },
   ];
+
+  if (!feedback.trim()) {
+    return null;
+  }
 
   return (
     <div className="flex min-h-full flex-col bg-zinc-50 dark:bg-zinc-950">

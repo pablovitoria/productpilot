@@ -5,32 +5,57 @@ import { useWorkflow } from "@/lib/workflow/context";
 import { MOCK_OPPORTUNITIES } from "@/lib/workflow/opportunities";
 import { getNextStepPath, getPreviousStepPath } from "@/lib/workflow/steps";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function OpportunitiesPage() {
   const router = useRouter();
-  const { selectedOpportunityId, selectOpportunity, analysisComplete, workspace } =
-    useWorkflow();
+  const {
+    feedback,
+    selectedOpportunityId,
+    selectOpportunity,
+    analysisComplete,
+    workspace,
+  } = useWorkflow();
   const [pendingId, setPendingId] = useState<string | null>(
     selectedOpportunityId,
   );
+  const navigateAfterSelectRef = useRef(false);
 
   useEffect(() => {
+    if (!feedback.trim()) {
+      router.replace("/");
+      return;
+    }
     if (!analysisComplete) {
       router.replace("/analysis");
     }
-  }, [analysisComplete, router]);
+  }, [feedback, analysisComplete, router]);
+
+  useEffect(() => {
+    if (!navigateAfterSelectRef.current || !pendingId) return;
+    if (selectedOpportunityId !== pendingId || !workspace) return;
+
+    navigateAfterSelectRef.current = false;
+    const next = getNextStepPath("/opportunities");
+    if (next) router.push(next);
+  }, [pendingId, selectedOpportunityId, workspace, router]);
 
   function handleContinue() {
     if (!pendingId) return;
-    if (pendingId !== selectedOpportunityId || !workspace) {
-      selectOpportunity(pendingId);
-    }
+
     const next = getNextStepPath("/opportunities");
-    if (next) router.push(next);
+    if (!next) return;
+
+    if (pendingId === selectedOpportunityId && workspace) {
+      router.push(next);
+      return;
+    }
+
+    selectOpportunity(pendingId);
+    navigateAfterSelectRef.current = true;
   }
 
-  if (!analysisComplete) {
+  if (!feedback.trim() || !analysisComplete) {
     return null;
   }
 
